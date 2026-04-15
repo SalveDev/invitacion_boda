@@ -708,7 +708,7 @@
         const mapaUrl = 'https://maps.app.goo.gl/nMyRGGKbcmNhwnLSA';
 
         ubicacionBtn.addEventListener('click', () => {
-            window.open(mapaUrl, '_blank', 'noopener,noreferrer');
+            window.location.href = mapaUrl;
         });
 
 
@@ -725,7 +725,7 @@
                 );
 
                 const url = `https://wa.me/524427421651?text=${mensaje}`;
-                window.open(url, '_blank');
+                window.location.href = url;
             });
         }
 

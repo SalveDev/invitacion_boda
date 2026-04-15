@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Salvador & Karla | Invitación</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #0b0b0d;
+            --text: #f5f1ea;
+            --muted: rgba(245, 241, 234, 0.7);
+            --accent: #d7c3a3;
+            --line: rgba(255, 255, 255, 0.08);
+            --glass: rgba(255, 255, 255, 0.05);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        /* ================= HERO ================= */
+
+        .hero {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* capas */
+        .hero-layer {
+            position: absolute;
+            inset: 0;
+            will-change: transform;
+        }
+
+        body:not(.loaded) .hero-layer {
+            opacity: 0;
+        }
+
+        body.loaded .hero-layer {
+            opacity: 1;
+            transition: opacity 1.6s ease-out;
+        }
+
+        .hero-layer img {
+            width: 100%;
+            height: 120%;
+            object-fit: cover;
+        }
+
+        /* fondo (más lento) */
+        .hero-layer.bg {
+            z-index: 1;
+        }
+
+        .hero-layer.bg img {
+            transform: scale(1.05);
+        }
+
+        body:not(.loaded) .hero-layer.bg img {
+            filter: blur(20px) brightness(0.3);
+            transform: scale(1.1);
+        }
+
+        body.loaded .hero-layer.bg img {
+            filter: blur(10px) brightness(0.4) contrast(1.2);
+            transform: scale(1.05);
+            transition: filter 2s ease-out, transform 2s ease-out;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom,
+                    rgba(0, 0, 0, 0.4),
+                    rgba(0, 0, 0, 0.6));
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        /* sujetos (más rápido) */
+        .hero-layer.fg {
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 3;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            text-align: center;
+            padding: 20px;
+            z-index: 5;
+            /* animation removed for overlay, now handled in .header */
+            opacity: 1;
+        }
+
+        /* HEADER primero */
+        .header {
+            opacity: 0;
+            animation: fadeHero 1.6s ease-out forwards;
+            transition: transform 1.2s ease;
+        }
+
+        /* invitados al final */
+        .guest {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+        }
+
+
+        @keyframes fadeHero {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ================= TEXTOS ================= */
+
+        .names {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3rem, 10vw, 5rem);
+            line-height: 1;
+            text-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+        }
+
+        .amp {
+            color: var(--accent);
+            margin: 10px 0;
+            display: block;
+            text-shadow: 0 0 20px rgba(215, 195, 163, 0.6);
+        }
+
+        .date {
+            margin-top: 15px;
+            letter-spacing: 0.25em;
+            font-size: 0.75rem;
+            color: var(--muted);
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+        }
+
+        .guest span {
+            font-size: 0.9rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--accent);
+            white-space: nowrap;
+
+            opacity: 0;
+            transform: translateY(10px);
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+        }
+
+        body.guests-loaded .guest span {
+            animation: fadeGuest 0.8s ease-out forwards;
+            animation-delay: calc(var(--i) * 0.15s);
+        }
+
+        @keyframes fadeGuest {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ================= SECCIONES ================= */
+
+        .section {
+            padding: 40px;
+            max-width: 520px;
+            margin: auto;
+
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1.2s ease;
+        }
+
+        body.loaded .section {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section:nth-of-type(1) {
+            transition-delay: 0.3s;
+        }
+
+        .section:nth-of-type(2) {
+            transition-delay: 0.5s;
+        }
+
+        .section:nth-of-type(3) {
+            transition-delay: 0.7s;
+        }
+
+        .text {
+            line-height: 1.9;
+            color: var(--muted);
+            font-size: 0.95rem;
+            text-align: center;
+        }
+
+        /* ================= CARDS ================= */
+
+        .card {
+            border-radius: 18px;
+            padding: 22px;
+            margin-top: 20px;
+
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--line);
+
+            transition: all 0.3s ease;
+        }
+
+        /* ================= MAPA ================= */
+
+        .mapa-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .mapa-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 6s ease, filter 2s ease;
+        }
+
+        .mapa-container::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom,
+                    rgba(0, 0, 0, 0.2),
+                    rgba(0, 0, 0, 0.5));
+            pointer-events: none;
+        }
+
+        .mapa-container:hover img {
+            transform: scale(1.05);
+        }
+
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(215, 195, 163, 0.4);
+            }
+
+            70% {
+                box-shadow: 0 0 0 12px rgba(215, 195, 163, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(215, 195, 163, 0);
+            }
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .label {
+            font-size: 0.7rem;
+            letter-spacing: 0.25em;
+            color: var(--accent);
+            margin-bottom: 10px;
+            text-align: center;
+            opacity: 0.8;
+            margin-top: 10px;
+        }
+
+        .invitados-section .label {
+            font-size: 0.75rem;
+            letter-spacing: 0.3em;
+            margin-bottom: 20px;
+            opacity: 0.6;
+        }
+
+        .value {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* ================= BOTONES ================= */
+
+        .actions {
+            margin-top: 35px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        button {
+            text-decoration: none;
+            padding: 14px;
+            border-radius: 999px;
+            text-align: center;
+            border: 1px solid var(--line);
+            color: var(--text);
+            font-size: 0.9rem;
+            background: transparent;
+
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent);
+        }
+
+        button.primary {
+            background: var(--accent);
+            color: #000;
+            border: none;
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+        }
+
+        button.primary::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            opacity: 0;
+            transition: 0.5s;
+        }
+
+        button.primary:hover::after {
+            opacity: 1;
+            transform: translateX(100%);
+        }
+
+        /* ================= REGALOS ================= */
+
+        #regalos {
+            animation: fadeUp 0.5s ease;
+        }
+
+        /* ================= UBICACION ================= */
+
+        .ubicacion .card {
+            padding: 0;
+            overflow: hidden;
+        }
+
+        /* label limpio arriba */
+        .ubicacion .label {
+            padding: 20px 20px 12px;
+            margin: 0;
+        }
+
+        /* separaciones sutiles */
+        .mapa-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+        }
+
+        /* imagen limpia, sin filtros */
+        img.mapa {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        /* botón contenido */
+        .mapa-container button {
+            width: 100%;
+            max-width: 260px;
+        }
+
+        /* ================= GALERIA PARALLAX STACK ================= */
+
+        .galeria-parallax {
+            position: relative;
+            height: 120vh;
+            margin-top: 40px;
+            margin-bottom: -60px;
+        }
+
+        .foto-layer {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%) scale(1);
+            width: 80%;
+            max-width: 420px;
+            height: 55vh;
+            overflow: hidden;
+            border-radius: 18px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+            will-change: transform;
+            transition: transform 0.5s ease, box-shadow 0.5s ease, opacity 0.4s ease, filter 0.4s ease;
+        }
+
+        .foto-layer.active {
+            z-index: 10 !important;
+            transform: translateX(-50%) scale(1.08) !important;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8);
+        }
+
+        .foto-layer:not(.active) {
+            filter: blur(1px);
+        }
+
+
+        .foto-layer img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* niveles tipo collage */
+        .foto-layer:nth-child(1) {
+            top: 0;
+            z-index: 1;
+            transform: translateX(-50%) rotate(-4deg);
+        }
+
+        .foto-layer:nth-child(2) {
+            top: 20vh;
+            z-index: 2;
+            transform: translateX(-50%) rotate(3deg);
+        }
+
+        .foto-layer:nth-child(3) {
+            top: 40vh;
+            z-index: 3;
+            transform: translateX(-50%) rotate(-2deg);
+        }
+
+        .foto-layer:nth-child(4) {
+            top: 60vh;
+            z-index: 4;
+            transform: translateX(-50%) rotate(2deg);
+        }
+
+        @media (max-width: 600px) {
+            .foto-layer {
+                width: 90%;
+                height: 45vh;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-layer bg">
+            <img src="/static/images/fondo.webp">
+        </div>
+
+        <div class="hero-layer fg">
+            <img src="/static/images/sujetos.webp">
+        </div>
+
+        <div class="hero-overlay">
+
+            <div class="header">
+
+                <h1 class="names">
+                    Karla
+                    <span class="amp">&</span>
+                    Salvador
+                </h1>
+                <div class="date">12 · SEP · 2026</div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- <section class="galeria-parallax">
+
+        <div class="label">
+            Momentos juntos:
+        </div>
+
+        <div class="foto-layer">
+            <img src="/static/photos/foto1.jpeg">
+        </div>
+
+        <div class="foto-layer">
+            <img src="/static/photos/foto2.jpeg">
+        </div>
+
+        <div class="foto-layer">
+            <img src="/static/photos/foto3.jpeg">
+        </div>
+
+        <div class="foto-layer">
+            <img src="/static/photos/foto4.jpeg">
+        </div>
+
+    </section> -->
+
+    <section class="section invitados-section">
+        <div class="label">Invitados:</div>
+        <div class="guest" id="lista_invitados"></div>
+    </section>
+
+    <!-- MENSAJE -->
+    <section class="section">
+        <p class="text">
+            Nos encantaría que formes parte de este momento tan importante para nosotros.
+            <br><br>
+            Hemos decidido unir nuestras vidas en una ceremonia civil íntima.
+        </p>
+    </section>
+
+    <!-- DETALLES -->
+    <section class="section">
+
+        <div class="card">
+            <div class="label">
+                Ceremonia Civil
+            </div>
+
+            <div class="value">
+                <span><strong>Fecha: </strong>12 de septiembre 2026</span>
+                <span><strong>Hora: </strong>3:00 PM</span>
+                <span><strong>Dresscode: </strong>Formal</span>
+            </div>
+        </div>
+
+        <div class="card">
+
+            <div class="label">
+                Ubicación
+            </div>
+
+            <div class="value">
+                <img src="/static/images/mapa.png" alt="Mapa" class="mapa" id="mapa_descarga">
+                <button class="primary" id="ver_ubicacion">Ver ubicación</button>
+            </div>
+
+        </div>
+
+        <div class="card">
+            <div class="label">Bebidas</div>
+            <div class="value">
+                <span>Hemos optado por una celebración sin bebidas alcohólicas.</span>
+                <span>Si desean acompañarnos con su bebida favorita, serán bienvenidos de traerla.</span>
+                <span>Nuestro equipo estará encantado de asistirles en la preparación y servicio de sus bebidas.</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="label">Mesa de Regalos</div>
+            <div class="value">
+                <span>Su presencia es el mejor regalo para nosotros.</span>
+                <span>Si desean tener un detalle adicional, lo recibimos con mucho cariño.</span>
+                <span>Para mantenerlo sencillo y especial, les pedimos amablemente no informarnos sobre su
+                    aportación.</span>
+
+                <div style="margin-top: 12px; line-height: 1.6;">
+                    <strong>Beneficiario:</strong> Karla Mayagua Torres<br>
+                    <strong>CLABE:</strong> 638180010122796859<br>
+                    <strong>Banco:</strong> Nu México
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="label">Confirmación</div>
+            <div class="value">
+                <span>Agradeceríamos mucho que confirmaras tu asistencia antes del 20 de agosto.</span>
+                <span>Esto nos ayudará a organizar mejor el evento y asegurarnos de que todos estén cómodos.</span>
+                <button class="primary" id="confirmar_asistencia">Confirmar Asistencia</button>
+            </div>
+
+        </div>
+
+    </section>
+
+    <script>
+
+        const params = new URLSearchParams(window.location.search);
+        const inv = params.get('inv');
+        const guestContainer = document.getElementById('lista_invitados');
+
+        function finalizarCarga() {
+            const images = document.querySelectorAll('.hero-layer img');
+
+            Promise.all([...images].map(img => {
+                if (img.complete) return Promise.resolve();
+                return new Promise(resolve => {
+                    img.onload = resolve;
+                    img.onerror = resolve;
+                });
+            }))
+                .then(() => {
+                    document.body.classList.add('loaded');
+                });
+        }
+
+        function cargarInvitados() {
+            if (!inv || inv.length < 6) {
+                guestContainer.textContent = "Invitado especial";
+                finalizarCarga();
+                return;
+            }
+
+            fetch('/invitados.json')
+                .then(res => res.json())
+                .then(data => {
+                    const invitados = data.filter(i => i.inv === inv);
+
+                    if (invitados.length > 0) {
+                        invitados.forEach((i, index) => {
+                            const span = document.createElement('span');
+                            span.textContent = i.nombre;
+                            span.style.setProperty('--i', index);
+                            guestContainer.appendChild(span);
+                        });
+                    } else {
+                        guestContainer.textContent = "Invitado especial";
+                    }
+                    document.body.classList.add('guests-loaded');
+                    finalizarCarga();
+                })
+                .catch(() => {
+                    guestContainer.textContent = "Invitado especial";
+                    document.body.classList.add('guests-loaded');
+                    finalizarCarga();
+                });
+        }
+
+        const bg = document.querySelector('.hero-layer.bg');
+        const fg = document.querySelector('.hero-layer.fg');
+
+        let ticking = false;
+
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    const scrollY = window.scrollY;
+
+                    bg.style.transform = `translateY(${scrollY * 0.3}px)`;
+                    fg.style.transform = `translateY(${scrollY * 0.6}px)`;
+
+                    ticking = false;
+                });
+
+                ticking = true;
+            }
+        });
+
+
+        // boton de ubicación
+        const ubicacionBtn = document.getElementById('ver_ubicacion');
+        const mapaUrl = 'https://maps.app.goo.gl/nMyRGGKbcmNhwnLSA';
+
+        ubicacionBtn.addEventListener('click', () => {
+            window.open(mapaUrl, '_blank', 'noopener,noreferrer');
+        });
+
+
+        const confirmBtn = document.getElementById('confirmar_asistencia');
+
+        if (confirmBtn) {
+            confirmBtn.addEventListener('click', () => {
+                const mensaje = encodeURIComponent(
+                    `Hola Karla y Salvador,
+
+                    Nos hace mucha ilusión acompañarlos en este día tan especial. Confirmamos con gusto nuestra asistencia.
+
+                    Nos vemos el 12 de septiembre.`
+                );
+
+                const url = `https://wa.me/524427421651?text=${mensaje}`;
+                window.open(url, '_blank');
+            });
+        }
+
+
+        const mapaImg = document.getElementById('mapa_descarga');
+
+        if (mapaImg) {
+            mapaImg.style.cursor = 'pointer';
+
+            mapaImg.addEventListener('click', async () => {
+                try {
+                    const response = await fetch(mapaImg.src);
+                    const blob = await response.blob();
+
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+
+                    a.href = url;
+                    a.download = 'ubicacion-boda.png';
+
+                    document.body.appendChild(a);
+                    a.click();
+
+                    a.remove();
+                    window.URL.revokeObjectURL(url);
+
+                } catch (err) {
+                    console.error('Error descargando mapa:', err);
+                }
+            });
+        }
+
+        const capas = document.querySelectorAll('.foto-layer');
+
+        capas.forEach(layer => {
+            layer.addEventListener('click', () => {
+
+                // quitar activo de todas
+                capas.forEach(l => l.classList.remove('active'));
+
+                // activar seleccionada
+                layer.classList.add('active');
+            });
+        });
+
+        let tickingStack = false;
+
+        window.addEventListener('scroll', () => {
+
+            if (!tickingStack) {
+
+                requestAnimationFrame(() => {
+
+                    capas.forEach((layer, index) => {
+
+                        const rect = layer.getBoundingClientRect();
+
+                        if (rect.bottom > 0 && rect.top < window.innerHeight) {
+
+                            const progress = (rect.top - window.innerHeight / 2) / window.innerHeight;
+
+                            const speed = 60 + (index * 40);
+
+                            const translateY = progress * speed;
+
+                            layer.style.transform = `
+                                translateX(-50%)
+                                translateY(${translateY}px)
+                                rotate(${index % 2 === 0 ? -4 : 3}deg)
+                                scale(1.02)
+                            `;
+                        }
+
+                    });
+
+                    tickingStack = false;
+
+                });
+
+                tickingStack = true;
+            }
+        });
+    </script>
+
+    <script>
+        cargarInvitados();
+    </script>
+</body>
+
+</html>

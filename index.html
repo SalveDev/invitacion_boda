@@ -456,6 +456,392 @@
             gap: 10px;
             margin-top: 8px;
         }
+
+        /* ================= REDISEÑO FORMAL VINTAGE ================= */
+        :root {
+            --bg: #eee8dc;
+            --surface: #f8f4eb;
+            --surface-deep: #e3d8c5;
+            --text: #292820;
+            --muted: #6c675d;
+            --accent: #927447;
+            --accent-dark: #66502f;
+            --forest: #243126;
+            --line: rgba(66, 55, 38, 0.18);
+            --glass: rgba(255, 252, 244, 0.76);
+        }
+
+        html {
+            scroll-behavior: smooth;
+            background: var(--bg);
+        }
+
+        body {
+            min-width: 320px;
+            background:
+                radial-gradient(circle at 10% 20%, rgba(146, 116, 71, 0.08), transparent 28rem),
+                var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            z-index: 20;
+            pointer-events: none;
+            opacity: 0.035;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+        }
+
+        .hero {
+            min-height: 620px;
+            height: 100vh;
+            height: 100svh;
+            background: var(--forest);
+        }
+
+        .hero-layer img {
+            height: 108%;
+            object-position: 50% 55%;
+        }
+
+        body:not(.loaded) .hero-layer.bg img {
+            filter: blur(14px) brightness(0.45) saturate(0.75);
+        }
+
+        body.loaded .hero-layer.bg img {
+            filter: brightness(0.62) contrast(1.04) saturate(0.78) sepia(0.08);
+            transform: scale(1.025);
+            transition: filter 1.8s ease, transform 2.4s ease;
+        }
+
+        .hero::after {
+            background:
+                linear-gradient(180deg, rgba(19, 25, 19, 0.68) 0%, rgba(19, 25, 19, 0.17) 45%, rgba(19, 25, 19, 0.4) 100%),
+                linear-gradient(90deg, rgba(13, 17, 13, 0.22), transparent 35%, transparent 65%, rgba(13, 17, 13, 0.22));
+        }
+
+        .hero-overlay {
+            justify-content: flex-start;
+            padding: max(72px, 11svh) 24px 32px;
+        }
+
+        .header {
+            width: min(100%, 480px);
+            color: #f8f2e7;
+        }
+
+        .hero-kicker,
+        .section-kicker {
+            font-size: 0.66rem;
+            font-weight: 500;
+            letter-spacing: 0.34em;
+            text-transform: uppercase;
+        }
+
+        .hero-kicker {
+            margin-bottom: 18px;
+            color: #d8c6a7;
+            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+        }
+
+        .names {
+            font-size: clamp(4.15rem, 20vw, 7.5rem);
+            font-weight: 400;
+            line-height: 0.72;
+            letter-spacing: -0.045em;
+            text-shadow: 0 8px 35px rgba(0, 0, 0, 0.48);
+        }
+
+        .amp {
+            margin: 14px 0 18px;
+            color: #d1b684;
+            font-size: 0.62em;
+            font-style: italic;
+            font-weight: 400;
+        }
+
+        .date {
+            margin-top: 30px;
+            color: #f0e7d6;
+            font-size: 0.66rem;
+            font-weight: 500;
+            letter-spacing: 0.36em;
+        }
+
+        .ornament {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 22px auto 0;
+            color: #d1b684;
+            font-size: 0.65rem;
+        }
+
+        .ornament::before,
+        .ornament::after {
+            content: '';
+            width: 46px;
+            height: 1px;
+            background: rgba(216, 198, 167, 0.7);
+        }
+
+        .section {
+            width: 100%;
+            max-width: 580px;
+            padding: 64px 24px;
+        }
+
+        .section-kicker {
+            margin-bottom: 12px;
+            color: var(--accent-dark);
+            text-align: center;
+        }
+
+        .section-title {
+            margin: 0 auto 26px;
+            color: var(--forest);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.2rem, 12vw, 3.5rem);
+            font-weight: 600;
+            line-height: 0.95;
+            text-align: center;
+            text-wrap: balance;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 54px;
+            height: 1px;
+            margin: 22px auto 0;
+            background: var(--accent);
+        }
+
+        .text {
+            color: var(--muted);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.17rem;
+            line-height: 1.65;
+        }
+
+        .galeria-parallax {
+            padding: 70px 0 54px;
+            background: var(--forest);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+        }
+
+        .galeria-parallax .label {
+            margin: 0 auto 18px;
+            color: #d8c6a7;
+        }
+
+        .galeria-track {
+            gap: 14px;
+            padding: 12px 7vw 28px;
+            scroll-padding-inline: 7vw;
+        }
+
+        .foto-layer {
+            position: relative;
+            flex-basis: 86vw;
+            max-width: 390px;
+            height: min(65vh, 560px);
+            min-height: 410px;
+            border: 8px solid #eee5d5;
+            border-bottom-width: 34px;
+            border-radius: 2px;
+            background: #eee5d5;
+            box-shadow: 0 22px 50px rgba(0, 0, 0, 0.38);
+        }
+
+        .foto-layer img {
+            filter: saturate(0.72) sepia(0.1) contrast(0.96);
+        }
+
+        .galeria-controls button {
+            width: 46px;
+            height: 46px;
+            border-color: rgba(216, 198, 167, 0.38);
+            background: rgba(255, 255, 255, 0.04);
+            color: #e7d9c2;
+        }
+
+        .card {
+            position: relative;
+            margin-top: 18px;
+            padding: 28px 22px;
+            border: 1px solid var(--line);
+            border-radius: 2px;
+            background: var(--glass);
+            box-shadow: 0 12px 34px rgba(70, 56, 35, 0.08);
+            backdrop-filter: blur(8px);
+        }
+
+        .card::before,
+        .card::after {
+            content: '';
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            pointer-events: none;
+        }
+
+        .card::before {
+            top: 8px;
+            left: 8px;
+            border-top: 1px solid var(--accent);
+            border-left: 1px solid var(--accent);
+        }
+
+        .card::after {
+            right: 8px;
+            bottom: 8px;
+            border-right: 1px solid var(--accent);
+            border-bottom: 1px solid var(--accent);
+        }
+
+        .card:hover {
+            transform: none;
+            border-color: rgba(102, 80, 47, 0.35);
+        }
+
+        .label {
+            margin: 0 0 18px;
+            color: var(--accent-dark);
+            font-size: 0.66rem;
+            font-weight: 600;
+            letter-spacing: 0.3em;
+            line-height: 1.4;
+            text-transform: uppercase;
+        }
+
+        .value {
+            gap: 10px;
+            color: var(--muted);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.12rem;
+            line-height: 1.55;
+        }
+
+        .value strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        img.mapa {
+            margin: 8px 0 4px;
+            border: 1px solid var(--line);
+            filter: saturate(0.65) sepia(0.12);
+        }
+
+        button {
+            min-height: 48px;
+            padding: 13px 22px;
+            border-color: var(--accent);
+            border-radius: 2px;
+            color: var(--accent-dark);
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        button.primary {
+            margin-top: 8px;
+            background: var(--forest);
+            color: #f4ecde;
+            border: 1px solid var(--forest);
+        }
+
+        dialog {
+            width: min(calc(100% - 32px), 480px);
+            max-height: calc(100svh - 32px);
+            padding: 26px 20px;
+            overflow-y: auto;
+            border: 1px solid var(--accent);
+            border-radius: 2px;
+            background: var(--surface);
+            color: var(--text);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.38);
+        }
+
+        dialog::backdrop {
+            background: rgba(21, 29, 22, 0.82);
+        }
+
+        dialog label {
+            color: var(--accent-dark);
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        dialog input,
+        dialog select {
+            min-height: 48px;
+            margin-top: 7px;
+            border-color: var(--line);
+            border-radius: 1px;
+            background: #fffdf8;
+            color: var(--text);
+            font: inherit;
+        }
+
+        .dialog-actions {
+            flex-direction: column;
+        }
+
+        @media (min-width: 700px) {
+            .hero-overlay {
+                padding-top: max(82px, 13vh);
+            }
+
+            .names {
+                font-size: 7.5rem;
+            }
+
+            .section {
+                padding-block: 88px;
+            }
+
+            .galeria-track {
+                padding-inline: max(8vw, calc((100vw - 1180px) / 2));
+                scroll-padding-inline: max(8vw, calc((100vw - 1180px) / 2));
+            }
+
+            .foto-layer {
+                flex-basis: min(68vw, 420px);
+            }
+
+            .dialog-actions {
+                flex-direction: row;
+            }
+
+            .dialog-actions button {
+                flex: 1;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
     </style>
 </head>
 
@@ -464,12 +850,14 @@
     <!-- HERO -->
     <section class="hero">
         <div class="hero-layer bg">
-            <img src="/static/images/hero-demo.png" alt="Celebración de boda en un jardín al atardecer">
+            <img src="./static/images/hero-vintage.jpg" alt="Pareja de recién casados caminando por un jardín histórico">
         </div>
 
         <div class="hero-overlay">
 
             <div class="header">
+
+                <div class="hero-kicker">Nuestra boda</div>
 
                 <h1 class="names">
                     Alex
@@ -477,6 +865,7 @@
                     Dani
                 </h1>
                 <div class="date">PRÓXIMAMENTE</div>
+                <div class="ornament" aria-hidden="true">✦</div>
 
             </div>
 
@@ -490,10 +879,10 @@
         </div>
 
         <div class="galeria-track" id="galeria_track">
-            <figure class="foto-layer"><img src="/static/photos/demo-mesa.png" alt="Mesa decorada para una boda" loading="lazy"></figure>
-            <figure class="foto-layer"><img src="/static/photos/demo-ramo.png" alt="Ramo de flores blancas" loading="lazy"></figure>
-            <figure class="foto-layer"><img src="/static/photos/demo-anillos.png" alt="Anillos de boda" loading="lazy"></figure>
-            <figure class="foto-layer"><img src="/static/photos/demo-ceremonia.png" alt="Ceremonia en un jardín" loading="lazy"></figure>
+            <figure class="foto-layer"><img src="./static/photos/demo-mesa.jpg" alt="Mesa decorada para una boda" loading="lazy"></figure>
+            <figure class="foto-layer"><img src="./static/photos/demo-ramo.jpg" alt="Ramo de flores blancas" loading="lazy"></figure>
+            <figure class="foto-layer"><img src="./static/photos/demo-anillos.jpg" alt="Anillos de boda" loading="lazy"></figure>
+            <figure class="foto-layer"><img src="./static/photos/demo-ceremonia.jpg" alt="Ceremonia en un jardín" loading="lazy"></figure>
         </div>
 
         <div class="galeria-controls">
@@ -504,6 +893,8 @@
 
     <!-- MENSAJE -->
     <section class="section">
+        <div class="section-kicker">Con mucha alegría</div>
+        <h2 class="section-title">Queremos celebrar contigo</h2>
         <p class="text">
             Esta es una invitación de demostración. Personalízala con los nombres, la fecha y los detalles de tu evento.
             <br><br>
@@ -513,6 +904,9 @@
 
     <!-- DETALLES -->
     <section class="section">
+
+        <div class="section-kicker">Los detalles</div>
+        <h2 class="section-title">Nuestra celebración</h2>
 
         <div class="card">
             <div class="label">
@@ -535,7 +929,7 @@
             <div class="value">
                 <span>Jardín de eventos</span>
                 <span>Dirección del evento</span>
-                <img src="/static/images/mapa-demo.png" alt="Mapa ilustrado de demostración" class="mapa">
+                <img src="./static/images/mapa-demo.jpg" alt="Mapa ilustrado de demostración" class="mapa" loading="lazy">
                 <button class="primary" id="ver_ubicacion">Ver ubicación</button>
             </div>
 
@@ -579,7 +973,7 @@
     <dialog id="ubicacion_dialog">
         <form method="dialog">
             <div class="label">Ubicación de muestra</div>
-            <img src="/static/images/mapa-demo.png" alt="Mapa ilustrado de demostración" class="mapa">
+            <img src="./static/images/mapa-demo.jpg" alt="Mapa ilustrado de demostración" class="mapa" loading="lazy">
             <p class="text">Jardín de eventos · Avenida de Ejemplo 123</p>
             <button class="primary" value="cerrar">Cerrar</button>
         </form>

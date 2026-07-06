@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Salvador & Karla | Invitación</title>
+    <title>Invitación de boda | Demo</title>
 
     <link
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap"
@@ -94,12 +94,6 @@
             pointer-events: none;
         }
 
-        /* sujetos (más rápido) */
-        .hero-layer.fg {
-            z-index: 2;
-            pointer-events: none;
-        }
-
         .hero-overlay {
             position: absolute;
             inset: 0;
@@ -123,16 +117,6 @@
             animation: fadeHero 1.6s ease-out forwards;
             transition: transform 1.2s ease;
         }
-
-        /* invitados al final */
-        .guest {
-            margin-top: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            align-items: center;
-        }
-
 
         @keyframes fadeHero {
             from {
@@ -168,35 +152,6 @@
             font-size: 0.75rem;
             color: var(--muted);
             text-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
-        }
-
-        .guest span {
-            font-size: 0.9rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--accent);
-            white-space: nowrap;
-
-            opacity: 0;
-            transform: translateY(10px);
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
-        }
-
-        body.guests-loaded .guest span {
-            animation: fadeGuest 0.8s ease-out forwards;
-            animation-delay: calc(var(--i) * 0.15s);
-        }
-
-        @keyframes fadeGuest {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
 
         /* ================= SECCIONES ================= */
@@ -308,13 +263,6 @@
             margin-top: 10px;
         }
 
-        .invitados-section .label {
-            font-size: 0.75rem;
-            letter-spacing: 0.3em;
-            margin-bottom: 20px;
-            opacity: 0.6;
-        }
-
         .value {
             font-size: 0.95rem;
             line-height: 1.7;
@@ -419,39 +367,36 @@
             max-width: 260px;
         }
 
-        /* ================= GALERIA PARALLAX STACK ================= */
+        /* ================= GALERÍA ================= */
 
         .galeria-parallax {
-            position: relative;
-            height: 120vh;
-            margin-top: 40px;
-            margin-bottom: -60px;
+            padding: 56px 0 24px;
+            overflow: hidden;
+        }
+
+        .galeria-track {
+            display: flex;
+            gap: 18px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+            padding: 20px max(24px, calc((100vw - 520px) / 2));
+            scroll-behavior: smooth;
+        }
+
+        .galeria-track::-webkit-scrollbar {
+            display: none;
         }
 
         .foto-layer {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%) scale(1);
-            width: 80%;
-            max-width: 420px;
-            height: 55vh;
+            flex: 0 0 min(78vw, 390px);
+            height: 52vh;
+            min-height: 430px;
             overflow: hidden;
             border-radius: 18px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
-            will-change: transform;
-            transition: transform 0.5s ease, box-shadow 0.5s ease, opacity 0.4s ease, filter 0.4s ease;
+            scroll-snap-align: center;
         }
-
-        .foto-layer.active {
-            z-index: 10 !important;
-            transform: translateX(-50%) scale(1.08) !important;
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8);
-        }
-
-        .foto-layer:not(.active) {
-            filter: blur(1px);
-        }
-
 
         .foto-layer img {
             width: 100%;
@@ -459,36 +404,57 @@
             object-fit: cover;
         }
 
-        /* niveles tipo collage */
-        .foto-layer:nth-child(1) {
-            top: 0;
-            z-index: 1;
-            transform: translateX(-50%) rotate(-4deg);
+        .galeria-controls {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
         }
 
-        .foto-layer:nth-child(2) {
-            top: 20vh;
-            z-index: 2;
-            transform: translateX(-50%) rotate(3deg);
+        .galeria-controls button {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 1px solid var(--line);
+            background: var(--glass);
+            color: var(--text);
+            font-size: 1.2rem;
+            cursor: pointer;
         }
 
-        .foto-layer:nth-child(3) {
-            top: 40vh;
-            z-index: 3;
-            transform: translateX(-50%) rotate(-2deg);
+        dialog {
+            width: min(90vw, 460px);
+            margin: auto;
+            padding: 28px;
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            background: #151518;
+            color: var(--text);
         }
 
-        .foto-layer:nth-child(4) {
-            top: 60vh;
-            z-index: 4;
-            transform: translateX(-50%) rotate(2deg);
+        dialog::backdrop {
+            background: rgba(0, 0, 0, 0.78);
+            backdrop-filter: blur(6px);
         }
 
-        @media (max-width: 600px) {
-            .foto-layer {
-                width: 90%;
-                height: 45vh;
-            }
+        dialog form {
+            display: grid;
+            gap: 14px;
+        }
+
+        dialog input,
+        dialog select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            background: #0b0b0d;
+            color: var(--text);
+        }
+
+        .dialog-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 8px;
         }
     </style>
 </head>
@@ -498,11 +464,7 @@
     <!-- HERO -->
     <section class="hero">
         <div class="hero-layer bg">
-            <img src="/static/images/fondo.webp">
-        </div>
-
-        <div class="hero-layer fg">
-            <img src="/static/images/sujetos.webp">
+            <img src="/static/images/hero-demo.png" alt="Celebración de boda en un jardín al atardecer">
         </div>
 
         <div class="hero-overlay">
@@ -510,52 +472,42 @@
             <div class="header">
 
                 <h1 class="names">
-                    Karla
+                    Alex
                     <span class="amp">&</span>
-                    Salvador
+                    Dani
                 </h1>
-                <div class="date">12 · SEP · 2026</div>
+                <div class="date">PRÓXIMAMENTE</div>
 
             </div>
 
         </div>
     </section>
 
-    <!-- <section class="galeria-parallax">
+    <section class="galeria-parallax" aria-label="Galería de inspiración">
 
         <div class="label">
-            Momentos juntos:
+            Inspiración para el gran día
         </div>
 
-        <div class="foto-layer">
-            <img src="/static/photos/foto1.jpeg">
+        <div class="galeria-track" id="galeria_track">
+            <figure class="foto-layer"><img src="/static/photos/demo-mesa.png" alt="Mesa decorada para una boda" loading="lazy"></figure>
+            <figure class="foto-layer"><img src="/static/photos/demo-ramo.png" alt="Ramo de flores blancas" loading="lazy"></figure>
+            <figure class="foto-layer"><img src="/static/photos/demo-anillos.png" alt="Anillos de boda" loading="lazy"></figure>
+            <figure class="foto-layer"><img src="/static/photos/demo-ceremonia.png" alt="Ceremonia en un jardín" loading="lazy"></figure>
         </div>
 
-        <div class="foto-layer">
-            <img src="/static/photos/foto2.jpeg">
+        <div class="galeria-controls">
+            <button type="button" id="galeria_anterior" aria-label="Imagen anterior">←</button>
+            <button type="button" id="galeria_siguiente" aria-label="Imagen siguiente">→</button>
         </div>
-
-        <div class="foto-layer">
-            <img src="/static/photos/foto3.jpeg">
-        </div>
-
-        <div class="foto-layer">
-            <img src="/static/photos/foto4.jpeg">
-        </div>
-
-    </section> -->
-
-    <section class="section invitados-section">
-        <div class="label">Invitados:</div>
-        <div class="guest" id="lista_invitados"></div>
     </section>
 
     <!-- MENSAJE -->
     <section class="section">
         <p class="text">
-            Nos encantaría que formes parte de este momento tan importante para nosotros.
+            Esta es una invitación de demostración. Personalízala con los nombres, la fecha y los detalles de tu evento.
             <br><br>
-            Hemos decidido unir nuestras vidas en una ceremonia civil íntima.
+            Nos encantará compartir contigo un momento muy especial.
         </p>
     </section>
 
@@ -568,8 +520,8 @@
             </div>
 
             <div class="value">
-                <span><strong>Fecha: </strong>12 de septiembre 2026</span>
-                <span><strong>Hora: </strong>3:00 PM</span>
+                <span><strong>Fecha: </strong>Por confirmar</span>
+                <span><strong>Hora: </strong>Por confirmar</span>
                 <span><strong>Dresscode: </strong>Formal</span>
             </div>
         </div>
@@ -581,9 +533,9 @@
             </div>
 
             <div class="value">
-                <span>Casa Carlota, jardin de eventos</span>
-                <span>Carr. Pie de Gallo Km 1.7, 76220 Santa Rosa Jáuregui, Qro.</span>
-                <img src="/static/images/mapa.png" alt="Mapa" class="mapa" id="mapa_descarga">
+                <span>Jardín de eventos</span>
+                <span>Dirección del evento</span>
+                <img src="/static/images/mapa-demo.png" alt="Mapa ilustrado de demostración" class="mapa">
                 <button class="primary" id="ver_ubicacion">Ver ubicación</button>
             </div>
 
@@ -607,9 +559,7 @@
                     aportación.</span>
 
                 <div style="margin-top: 12px; line-height: 1.6;">
-                    <strong>Beneficiario:</strong> Karla Mayagua Torres<br>
-                    <strong>CLABE:</strong> 638180010122796859<br>
-                    <strong>Banco:</strong> Nu México
+                    <strong>Datos de regalo:</strong> Agrega aquí la información que quieras compartir.
                 </div>
             </div>
         </div>
@@ -617,7 +567,7 @@
         <div class="card">
             <div class="label">Confirmación</div>
             <div class="value">
-                <span>Agradeceríamos mucho que confirmaras tu asistencia antes del 20 de agosto.</span>
+                <span>Agradeceríamos mucho que confirmaras tu asistencia antes de la fecha indicada.</span>
                 <span>Esto nos ayudará a organizar mejor el evento y asegurarnos de que todos estén cómodos.</span>
                 <button class="primary" id="confirmar_asistencia">Confirmar Asistencia</button>
             </div>
@@ -626,11 +576,35 @@
 
     </section>
 
-    <script>
+    <dialog id="ubicacion_dialog">
+        <form method="dialog">
+            <div class="label">Ubicación de muestra</div>
+            <img src="/static/images/mapa-demo.png" alt="Mapa ilustrado de demostración" class="mapa">
+            <p class="text">Jardín de eventos · Avenida de Ejemplo 123</p>
+            <button class="primary" value="cerrar">Cerrar</button>
+        </form>
+    </dialog>
 
-        const params = new URLSearchParams(window.location.search);
-        const inv = params.get('inv');
-        const guestContainer = document.getElementById('lista_invitados');
+    <dialog id="confirmacion_dialog">
+        <form id="confirmacion_form">
+            <div class="label">Confirmar asistencia</div>
+            <label>Nombre<input name="nombre" required placeholder="Tu nombre"></label>
+            <label>Asistencia
+                <select name="asistencia" required>
+                    <option value="">Selecciona una opción</option>
+                    <option>Sí, asistiré</option>
+                    <option>No podré asistir</option>
+                </select>
+            </label>
+            <p id="confirmacion_resultado" class="text" hidden></p>
+            <div class="dialog-actions">
+                <button class="primary" type="submit">Enviar</button>
+                <button class="primary" type="button" id="cerrar_confirmacion">Cerrar</button>
+            </div>
+        </form>
+    </dialog>
+
+    <script>
 
         function finalizarCarga() {
             const images = document.querySelectorAll('.hero-layer img');
@@ -647,44 +621,7 @@
                 });
         }
 
-        function cargarInvitados() {
-
-            const texto_default = "Dewey, sal de aquí, esta no es tu familia.";
-
-            if (!inv || inv.length < 6) {
-                guestContainer.textContent = texto_default;
-                finalizarCarga();
-                return;
-            }
-
-            fetch('/invitados.json')
-                .then(res => res.json())
-                .then(data => {
-                    const invitados = data.filter(i => i.inv === inv);
-
-                    if (invitados.length > 0) {
-                        invitados.forEach((i, index) => {
-                            const span = document.createElement('span');
-                            span.textContent = i.nombre;
-                            span.style.setProperty('--i', index);
-                            guestContainer.appendChild(span);
-                        });
-                    } else {
-                        guestContainer.textContent = texto_default;
-                    }
-                    document.body.classList.add('guests-loaded');
-                    finalizarCarga();
-                })
-                .catch(() => {
-                    guestContainer.textContent = texto_default;
-                    document.body.classList.add('guests-loaded');
-                    finalizarCarga();
-                });
-        }
-
         const bg = document.querySelector('.hero-layer.bg');
-        const fg = document.querySelector('.hero-layer.fg');
-
         let ticking = false;
 
         window.addEventListener('scroll', () => {
@@ -693,7 +630,6 @@
                     const scrollY = window.scrollY;
 
                     bg.style.transform = `translateY(${scrollY * 0.3}px)`;
-                    fg.style.transform = `translateY(${scrollY * 0.6}px)`;
 
                     ticking = false;
                 });
@@ -705,113 +641,36 @@
 
         // boton de ubicación
         const ubicacionBtn = document.getElementById('ver_ubicacion');
-        const mapaUrl = 'https://maps.app.goo.gl/nMyRGGKbcmNhwnLSA';
-
+        const ubicacionDialog = document.getElementById('ubicacion_dialog');
         ubicacionBtn.addEventListener('click', () => {
-            window.location.href = mapaUrl;
+            ubicacionDialog.showModal();
         });
-
 
         const confirmBtn = document.getElementById('confirmar_asistencia');
+        const confirmacionDialog = document.getElementById('confirmacion_dialog');
+        const confirmacionForm = document.getElementById('confirmacion_form');
+        const confirmacionResultado = document.getElementById('confirmacion_resultado');
 
-        if (confirmBtn) {
-            confirmBtn.addEventListener('click', () => {
-                const mensaje = encodeURIComponent(
-                    `Hola Karla y Salvador,
-
-                    Nos hace mucha ilusión acompañarlos en este día tan especial. Confirmamos con gusto nuestra asistencia.
-
-                    Nos vemos el 12 de septiembre.`
-                );
-
-                const url = `https://wa.me/524427421651?text=${mensaje}`;
-                window.location.href = url;
-            });
-        }
-
-
-        const mapaImg = document.getElementById('mapa_descarga');
-
-        if (mapaImg) {
-            mapaImg.style.cursor = 'pointer';
-
-            mapaImg.addEventListener('click', async () => {
-                try {
-                    const response = await fetch(mapaImg.src);
-                    const blob = await response.blob();
-
-                    const url = window.URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-
-                    a.href = url;
-                    a.download = 'ubicacion-boda.png';
-
-                    document.body.appendChild(a);
-                    a.click();
-
-                    a.remove();
-                    window.URL.revokeObjectURL(url);
-
-                } catch (err) {
-                    console.error('Error descargando mapa:', err);
-                }
-            });
-        }
-
-        const capas = document.querySelectorAll('.foto-layer');
-
-        capas.forEach(layer => {
-            layer.addEventListener('click', () => {
-
-                // quitar activo de todas
-                capas.forEach(l => l.classList.remove('active'));
-
-                // activar seleccionada
-                layer.classList.add('active');
-            });
+        confirmBtn.addEventListener('click', () => confirmacionDialog.showModal());
+        document.getElementById('cerrar_confirmacion').addEventListener('click', () => confirmacionDialog.close());
+        confirmacionForm.addEventListener('submit', event => {
+            event.preventDefault();
+            const datos = new FormData(confirmacionForm);
+            confirmacionResultado.textContent = `Gracias, ${datos.get('nombre')}. Tu respuesta "${datos.get('asistencia')}" quedó registrada en esta demo.`;
+            confirmacionResultado.hidden = false;
         });
 
-        let tickingStack = false;
-
-        window.addEventListener('scroll', () => {
-
-            if (!tickingStack) {
-
-                requestAnimationFrame(() => {
-
-                    capas.forEach((layer, index) => {
-
-                        const rect = layer.getBoundingClientRect();
-
-                        if (rect.bottom > 0 && rect.top < window.innerHeight) {
-
-                            const progress = (rect.top - window.innerHeight / 2) / window.innerHeight;
-
-                            const speed = 60 + (index * 40);
-
-                            const translateY = progress * speed;
-
-                            layer.style.transform = `
-                                translateX(-50%)
-                                translateY(${translateY}px)
-                                rotate(${index % 2 === 0 ? -4 : 3}deg)
-                                scale(1.02)
-                            `;
-                        }
-
-                    });
-
-                    tickingStack = false;
-
-                });
-
-                tickingStack = true;
-            }
-        });
+        const galeriaTrack = document.getElementById('galeria_track');
+        const desplazarGaleria = direccion => {
+            const tarjeta = galeriaTrack.querySelector('.foto-layer');
+            galeriaTrack.scrollBy({ left: direccion * (tarjeta.offsetWidth + 18), behavior: 'smooth' });
+        };
+        document.getElementById('galeria_anterior').addEventListener('click', () => desplazarGaleria(-1));
+        document.getElementById('galeria_siguiente').addEventListener('click', () => desplazarGaleria(1));
     </script>
 
     <script>
-        cargarInvitados();
+        finalizarCarga();
     </script>
 </body>
 
